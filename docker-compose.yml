@@ -1,0 +1,15 @@
+services:
+  stampede:
+    image: ghcr.io/stockyard-dev/stockyard-stampede:latest
+    ports:
+      - "8880:8880"
+    environment:
+      - PORT=${STOCKYARD_PORT:-8880}
+      - DATA_DIR=${STOCKYARD_DATA_DIR:-/data}
+      - STAMPEDE_LICENSE_KEY=${STOCKYARD_STAMPEDE_LICENSE_KEY:-}
+    volumes:
+      - stampede-data:/data
+    restart: unless-stopped
+volumes:
+  stampede-data:
+    driver: local
