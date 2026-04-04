@@ -32,6 +32,7 @@ func(s *Server)update(w http.ResponseWriter,r *http.Request){
 patch.Name=existing.Name};if patch.TargetURL==""{
 patch.TargetURL=existing.TargetURL};if patch.Status==""{
 patch.Status=existing.Status}
+    if patch.Concurrency==0{patch.Concurrency=existing.Concurrency};if patch.Duration==0{patch.Duration=existing.Duration};if patch.RequestCount==0{patch.RequestCount=existing.RequestCount};if patch.AvgLatency==0{patch.AvgLatency=existing.AvgLatency};if patch.ErrorRate==0{patch.ErrorRate=existing.ErrorRate}
     s.db.Update(&patch);wj(w,200,s.db.Get(patch.ID))
 }
 func(s *Server)del(w http.ResponseWriter,r *http.Request){s.db.Delete(r.PathValue("id"));wj(w,200,map[string]string{"deleted":"ok"})}
